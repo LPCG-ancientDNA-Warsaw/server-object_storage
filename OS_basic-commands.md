@@ -11,15 +11,36 @@ The new Object Storage server that is currently being implemented, is a type of 
 The Object Storage is intended to be an archive of data for inputs and ouputs. It is intended to communicate with anthill4.0 which will be used as the computational power. So the idea is the following:
 
 ```mermaid
----
-config:
-  look: handDrawn
-  theme: neutral
----
-sequenceDiagram;
-    participant ObjectStorage@{ "type" : "database" };
-    participant Anthill4.0;
-    ObjectStorage->>Anthill4.0: Hey man, take this input, and analyze it.;
-    Anthill4.0-->>ObjectStorage: Ok, I analysed it. I am saving some temporary files in memory. You want them?;
-    Note right of ObjectStorage: No, thank you. I am only meant to store final outputs.;
+{
+  "theme": "redux-color",
+  "look": "handDrawn"
+};
+flowchart LR;
+    subgraph WetLab[WetLab];
+        Gate1{Do I want to analyse some data?} --> |Yes| Illumina[First obtain Illumina raw file];
+    end;
+    
+    subgraph anthill4[anthill4.0];
+        fasta[Generate fasta files];
+        pipeline[Start pipeline] --> Intermediate[Intermediate files];
+        Intermediate --> Output[Output files];
+        Intermediate --> Delete;
+        Output --> Gate3{Will you need for future analysis?};
+        Gate3 --> |No| Delete[Delete];
+        Gate4{By future you mean right away?};
+        Gate3 --> |Yes| Gate4;
+        Gate4 --> |Yes| pipeline;
+
+    end;
+
+    Illumina --> fasta;
+    
+    subgraph Storage[Object storage];
+        stored[Stored files] --> Gate2{Read-only};
+    end;
+    
+    fasta --> stored;
+    Illumina --> stored;
+    Gate2--> pipeline[Start pipeline];
+    Gate4 --> |No, most likely in months| stored;
 ``` 
