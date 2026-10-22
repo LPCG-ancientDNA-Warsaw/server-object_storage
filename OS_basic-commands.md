@@ -13,13 +13,13 @@ The Object Storage is intended to be an archive of data for inputs and ouputs. I
 ```mermaid
 ---
 config:
+  look: handDrawn
   theme: neutral
 ---
 sequenceDiagram
-    participant Object Storage
+    participant Object Storage@{ "type" : "database" }
     participant Anthill4.0
-    
     Object Storage->>Anthill4.0: Hey man, take this input, and analyze it.
     Anthill4.0-->>Object Storage: Ok, I analysed it. I am saving some temporary files in memory. You want them?
     Note right of Object Storage: No, thank you. I am only meant to store final outputs.
-```
+``` 
