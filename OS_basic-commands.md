@@ -11,10 +11,11 @@ The new Object Storage server that is currently being implemented, is a type of 
 The Object Storage is intended to be an archive of data for inputs and ouputs. It is intended to communicate with anthill4.0 which will be used as the computational power. So the idea is the following:
 
 ```mermaid
-{
-  "theme": "redux-color",
-  "look": "handDrawn"
-};
+---
+config:
+  theme: redux-color
+  look: handDrawn
+---
 flowchart LR;
     subgraph WetLab[WetLab];
         Gate1{Do I want to analyse some data?} --> |Yes| Illumina[First obtain Illumina raw file];
