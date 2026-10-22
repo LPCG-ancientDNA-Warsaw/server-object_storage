@@ -11,6 +11,16 @@ The new Object Storage server that is currently being implemented, is a type of 
 The Object Storage is intended to be an archive of data for inputs and ouputs. It is intended to communicate with anthill4.0 which will be used as the computational power. So the idea is the following:
 
 ```mermaid
+  info
+
+sequenceDiagram
+    participant Alice@{ "type" : "database" }
+    participant Bob
+    Alice->>Bob: DB query
+    Bob->>Alice: DB result
+```
+
+```mermaid
 ---
 config:
   look: handDrawn
